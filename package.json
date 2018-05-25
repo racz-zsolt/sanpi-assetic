@@ -4,7 +4,6 @@
     "coffeescript": "*",
     "stylus": "*",
     "nib": "*",
-    "ember-precompile": "*",
     "typescript": "*",
     "less": "*",
     "handlebars": "*",
