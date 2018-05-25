@@ -1,7 +1,7 @@
 {
   "devDependencies": {
     "uglifycss": "*",
-    "coffee-script": "*",
+    "coffeescript": "*",
     "stylus": "*",
     "nib": "*",
     "ember-precompile": "*",
