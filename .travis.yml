@@ -22,10 +22,6 @@ cache:
 php:
     - 7.1
 
-matrix:
-    allow_failures:
-        - php: 7.1
-
 before_script:
     # php deps
     - composer self-update
