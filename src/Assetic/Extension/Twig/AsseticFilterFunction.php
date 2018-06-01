@@ -15,6 +15,8 @@ class AsseticFilterFunction extends \Twig_SimpleFunction
 {
     public function __construct($name, $options = array())
     {
+        @trigger_error('The ' . __CLASS__ . ' class is deprecated since version 1.5 and will be removed in 2.0.', E_USER_DEPRECATED);
+
         parent::__construct($name, null, array_merge($options, array(
             'needs_environment' => false,
             'needs_context' => false,
