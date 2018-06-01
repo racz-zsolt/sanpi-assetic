@@ -29,6 +29,7 @@
         "meenie/javascript-packer": "^1.1",
         "mrclay/minify": "^3.0",
         "natxet/cssmin": "^3.0",
+        "nitra/php-min": "^0.0",
         "patchwork/jsqueeze": "^2.0",
         "phpunit/phpunit": "^7.0",
         "psr/log": "^1.0",
