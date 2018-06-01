@@ -146,7 +146,7 @@ EOF;
             json_encode(array_merge($parserOptions, $this->treeOptions))
         ));
 
-        $proc = new Process($commandline);
+        $proc = $this->createProcessBuilder($commandline);
         $code = $proc->run();
         unlink($input);
 
