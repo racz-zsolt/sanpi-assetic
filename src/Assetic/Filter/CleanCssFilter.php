@@ -263,12 +263,16 @@ class CleanCssFilter extends BaseNodeFilter
      */
     public function filterDump(AssetInterface $asset)
     {
-        $commandline = $this->nodeBin
-            ? array($this->nodeBin, $this->cleanCssBin)
-            : array($this->cleanCssBin);
+        $commandline = $this->getBinary();
+        $formats = array();
+        $optimizations = array();
 
         if ($this->keepLineBreaks) {
-            array_push($commandline, '--keep-line-breaks');
+            if ($this->isV4()) {
+                $format[] = 'keep-breaks';
+            } else {
+                array_push($commandline, '--keep-line-breaks');
+            }
         }
 
         if ($this->compatibility) {
@@ -280,58 +284,102 @@ class CleanCssFilter extends BaseNodeFilter
         }
 
         if ($this->rootPath) {
-            array_push($commandline, '--root ' . $this->rootPath);
+            if ($this->isV4()) {
+                $this->deprecatedOption('rootPath');
+            } else {
+                array_push($commandline, '--root ' . $this->rootPath);
+            }
         }
 
         if ($this->skipImport) {
-            array_push($commandline, '--skip-import');
+            if ($this->isV4()) {
+                array_push($commandline, '--inline=none');
+            } else {
+                array_push($commandline, '--skip-import');
+            }
         }
 
         if ($this->timeout) {
-            array_push($commandline, '--timeout ' . $this->timeout);
+            if ($this->isV4()) {
+                array_push($commandline, '--inline-timeout' . $this->timeout);
+            } else {
+                array_push($commandline, '--timeout ' . $this->timeout);
+            }
         }
 
         if ($this->roundingPrecision) {
-            array_push($commandline, '--rounding-precision ' . $this->roundingPrecision);
+            if ($this->isV4()) {
+                $this->deprecatedOption('roundingPrecision');
+            } else {
+                array_push($commandline, '--rounding-precision ' . $this->roundingPrecision);
+            }
         }
 
         if ($this->removeSpecialComments) {
-            array_push($commandline, '--s0');
+            if ($this->isV4()) {
+                $optimizations[] = 'specialComments:0';
+            } else {
+                array_push($commandline, '--s0');
+            }
         }
 
         if ($this->onlyKeepFirstSpecialComment) {
-            array_push($commandline, '--s1');
+            if ($this->isV4()) {
+                $optimizations[] = 'specialComments:1';
+            } else {
+                array_push($commandline, '--s1');
+            }
         }
 
         if ($this->semanticMerging) {
-            array_push($commandline, '--semantic-merging');
+            if ($this->isV4()) {
+                $this->deprecatedOption('semanticMerging');
+            } else {
+                array_push($commandline, '--semantic-merging');
+            }
         }
 
         if ($this->skipAdvanced) {
+            $this->deprecatedOption('skipAdvanced');
             array_push($commandline, '--skip-advanced');
         }
 
         if ($this->skipAggresiveMerging) {
-            array_push($commandline, '--skip-aggressive-merging');
+            if ($this->isV4()) {
+                $this->deprecatedOption('skipAggresiveMerging');
+            } else {
+                array_push($commandline, '--skip-aggressive-merging');
+            }
         }
 
         if ($this->skipImportFrom) {
+            $this->deprecatedOption('skipImportFrom');
             array_push($commandline, '--skip-import-from ' . $this->skipImportFrom);
         }
 
         if ($this->mediaMerging) {
-            array_push($commandline, '--skip-media-merging');
+            if ($this->isV4()) {
+                $this->deprecatedOption('mediaMerging');
+            } else {
+                array_push($commandline, '--skip-media-merging');
+            }
         }
 
         if ($this->skipRebase) {
+            $this->deprecatedOption('skipRebase');
             array_push($commandline, '--skip-rebase');
         }
 
         if ($this->skipRestructuring) {
-            array_push($commandline, '--skip-restructuring');
+            if ($this->isV4()) {
+                $this->deprecatedOption('skipRestructuring');
+            } else {
+                array_push($commandline, '--skip-restructuring');
+            }
         }
 
         if ($this->skipShorthandCompacting) {
+            $this->deprecatedOption('skipShorthandCompacting');
             array_push($commandline, '--skip-shorthand-compacting');
         }
 
@@ -342,6 +390,15 @@ class CleanCssFilter extends BaseNodeFilter
         if ($this->sourceMapInlineSources) {
             array_push($commandline, '--source-map-inline-sources');
         }
+
+        if (!empty($formats)) {
+            array_push($commandline, '--format', implode(';', $formats));
+        }
+
+        if (!empty($optimizations)) {
+            array_push($commandline, '-O1', implode(';', $optimizations));
+        }
+
         // input and output files
         $input = tempnam(sys_get_temp_dir(), 'input');
 
@@ -361,5 +418,35 @@ class CleanCssFilter extends BaseNodeFilter
         }
 
         $asset->setContent($proc->getOutput());
+    }
+
+    private function deprecatedOption($name)
+    {
+        if ($this->isV4()) {
+            @trigger_error("cleancss '$name' option is not supported in 4.0", E_USER_DEPRECATED);
+        }
+    }
+
+    private function isV4()
+    {
+        return version_compare($this->getVersion(), '4', '>=');
+    }
+
+    private function getVersion()
+    {
+        $commandline = $this->getBinary();
+        array_push($commandline, '--version');
+
+        $proc = new Process($commandline);
+        $code = $proc->run();
+
+        return $proc->getOutput();
+    }
+
+    private function getBinary()
+    {
+        return $this->nodeBin
+            ? array($this->nodeBin, $this->cleanCssBin)
+            : array($this->cleanCssBin);
     }
 }

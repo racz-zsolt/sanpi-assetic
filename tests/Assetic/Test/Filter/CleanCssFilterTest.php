@@ -47,7 +47,7 @@ class CleanCssFilterTest extends FilterTestCase
         $this->filter->filterDump($this->asset);
 
         $expected = <<<CSS
-@import url(fonts.css);/*! Copyright */body{background:#000}/*! Second special comment */a{color:#fff}
+@import url(../../../../../tmp/fonts.css);/*! Copyright */body{background:#000}/*! Second special comment */a{color:#fff}
 CSS;
         $this->assertSame($expected, $this->asset->getContent());
     }
@@ -58,7 +58,7 @@ CSS;
         $this->filter->filterDump($this->asset);
 
         $expected = <<<CSS
-@import url(fonts.css);body{background:#000}a{color:#fff}
+@import url(../../../../../tmp/fonts.css);body{background:#000}a{color:#fff}
 CSS;
         $this->assertSame($expected, $this->asset->getContent());
     }
@@ -69,7 +69,7 @@ CSS;
         $this->filter->filterDump($this->asset);
 
         $expected = <<<CSS
-@import url(fonts.css);/*! Copyright */body{background:#000}a{color:#fff}
+@import url(../../../../../tmp/fonts.css);/*! Copyright */body{background:#000}a{color:#fff}
 CSS;
         $this->assertSame($expected, $this->asset->getContent());
     }
