@@ -12,6 +12,7 @@ addons:
             - libjpeg-progs
             - optipng
             - g++-4.8
+            - jpegoptim
 
 sudo: false
 
