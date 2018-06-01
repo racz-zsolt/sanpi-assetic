@@ -13,6 +13,6 @@
     "autoprefixer-cli": "*",
     "roole": "*",
     "react-tools": "*",
-    "clean-css": "*"
+    "clean-css-cli": "*"
   }
 }
