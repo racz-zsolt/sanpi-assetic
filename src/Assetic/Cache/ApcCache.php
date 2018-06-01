@@ -25,7 +25,7 @@ class ApcCache implements CacheInterface
      */
     public function has($key)
     {
-        return apc_exists($key);
+        return apcu_exists($key);
     }
 
     /**
@@ -33,7 +33,7 @@ class ApcCache implements CacheInterface
      */
     public function get($key)
     {
-        $value = apc_fetch($key, $success);
+        $value = apcu_fetch($key, $success);
 
         if (!$success) {
             throw new \RuntimeException('There is no cached value for '.$key);
@@ -47,7 +47,7 @@ class ApcCache implements CacheInterface
      */
     public function set($key, $value)
     {
-        $store = apc_store($key, $value, $this->ttl);
+        $store = apcu_store($key, $value, $this->ttl);
 
         if (!$store) {
             throw new \RuntimeException('Unable to store "'.$key.'" for '.$this->ttl.' seconds.');
@@ -61,6 +61,6 @@ class ApcCache implements CacheInterface
      */
     public function remove($key)
     {
-        return apc_delete($key);
+        return apcu_delete($key);
     }
 }
