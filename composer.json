@@ -24,7 +24,8 @@
     },
     "require-dev": {
         "leafo/lessphp": "^0.5",
-        "leafo/scssphp": "^0.7",
+        "leafo/scssphp": "dev-master",
+        "leafo/scssphp-compass": "dev-master",
         "linkorb/jsmin-php": "^1.0",
         "meenie/javascript-packer": "^1.1",
         "mrclay/minify": "^3.0",
