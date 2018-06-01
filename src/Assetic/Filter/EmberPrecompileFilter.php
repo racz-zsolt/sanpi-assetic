@@ -31,6 +31,8 @@ class EmberPrecompileFilter extends BaseNodeFilter
 
     public function __construct($handlebarsBin = '/usr/bin/ember-precompile', $nodeBin = null)
     {
+        @trigger_error('The ' . __CLASS__ . ' class is deprecated since version 1.5 and will be removed in 2.0.', E_USER_DEPRECATED);
+
         $this->emberBin = $handlebarsBin;
         $this->nodeBin = $nodeBin;
     }
