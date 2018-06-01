@@ -48,9 +48,8 @@ before_script:
     - export CLOSURE_JAR=vendor/java/compiler/compiler.jar
     - wget https://github.com/google/closure-stylesheets/releases/download/v1.4.0/closure-stylesheets.jar && mv closure-stylesheets.jar vendor/java
     - export GSS_JAR=vendor/java/closure-stylesheets.jar
-#    TODO find the new URL for the cssembed JAR
-#    - wget https://github.com/downloads/nzakas/cssembed/cssembed-0.4.5.jar && mv cssembed-0.4.5.jar vendor/java
-#    - export CSSEMBED_JAR=vendor/java/cssembed-0.4.5.jar
+    - wget https://github.com/downloads/nzakas/cssembed/cssembed-0.4.5.jar && mv cssembed-0.4.5.jar vendor/java
+    - export CSSEMBED_JAR=vendor/java/cssembed-0.4.5.jar
     - wget https://github.com/yui/yuicompressor/releases/download/v2.4.8/yuicompressor-2.4.8.jar
     - export YUI_COMPRESSOR_JAR=yuicompressor-2.4.8.jar
 
