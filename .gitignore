@@ -5,3 +5,9 @@ phpunit.xml
 vendor/
 node_modules/
 Gemfile.lock
+/.bundle/
+/compiler-latest.zip
+/dartsdk-linux-x64-release.zip
+/package-lock.json
+/pngout-*-linux.tar.gz
+/yuicompressor-*.jar
