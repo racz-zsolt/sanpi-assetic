@@ -35,6 +35,6 @@ class JSMinFilterTest extends TestCase
         $filter = new JSMinFilter();
         $filter->filterDump($asset);
 
-        $this->assertEquals('var a="abc";;;var bbb="u";', $asset->getContent());
+        $this->assertEquals("\nvar a=\"abc\";;;var bbb=\"u\";", $asset->getContent());
     }
 }
