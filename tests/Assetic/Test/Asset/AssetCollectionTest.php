@@ -175,7 +175,8 @@ class AssetCollectionTest extends TestCase
         $coll = new AssetCollection(array($asset), array(), null, $vars);
         $coll->setValues(array('locale' => 'en'));
         try {
-            $coll->getLastModified();
+            $actual = $coll->getLastModified();
+            $this->assertTrue(is_numeric($actual));
         } catch (\InvalidArgumentException $e) {
             $this->fail("->getLastModified() shouldn't fail for assets with vars");
         }

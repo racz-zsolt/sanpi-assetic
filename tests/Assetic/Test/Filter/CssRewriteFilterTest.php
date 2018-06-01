@@ -135,7 +135,7 @@ class CssRewriteFilterTest extends TestCase
         $filter = new CssRewriteFilter();
         $filter->filterDump($asset);
 
-        // no error is thrown
+        $this->assertNotEmpty($asset->getContent());
     }
 
     public function testEmptyUrl()
@@ -147,6 +147,6 @@ class CssRewriteFilterTest extends TestCase
         $filter = new CssRewriteFilter();
         $filter->filterDump($asset);
 
-        // no error is thrown
+        $this->assertNotEmpty($asset->getContent());
     }
 }

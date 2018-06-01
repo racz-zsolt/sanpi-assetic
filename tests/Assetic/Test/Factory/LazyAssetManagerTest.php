@@ -83,7 +83,7 @@ class LazyAssetManagerTest extends TestCase
 
     public function testGetResourcesEmpty()
     {
-        $this->am->getResources();
+        $this->assertEmpty($this->am->getResources());
     }
 
     public function testSetFormula()
