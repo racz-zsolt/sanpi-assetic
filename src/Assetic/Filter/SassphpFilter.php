@@ -26,6 +26,11 @@ class SassphpFilter implements DependencyExtractorInterface
     private $includePaths = array();
     private $outputStyle;
 
+    public function __construct()
+    {
+        @trigger_error('The ' . __CLASS__ . ' class is deprecated since version 1.5 and will be removed in 2.0.', E_USER_DEPRECATED);
+    }
+
     public function filterLoad(AssetInterface $asset)
     {
         $sass = new \Sass();
