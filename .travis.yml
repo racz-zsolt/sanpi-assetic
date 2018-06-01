@@ -30,6 +30,7 @@ matrix:
 
 before_script:
     # php deps
+    - yes '' | pecl install --force apcu
     - composer self-update
     - if [ "$DEPENDENCIES" = "dev" ]; then perl -pi -e 's/^}$/,"minimum-stability":"dev"}/' composer.json; fi;
     - composer update $COMPOSER_FLAGS
@@ -64,4 +65,4 @@ before_script:
     - wget -q http://static.jonof.id.au/dl/kenutils/pngout-20130221-linux.tar.gz && tar -xzf pngout-20130221-linux.tar.gz && mv pngout-20130221-linux vendor
     - export PNGOUT_BIN=vendor/pngout-20130221-linux/x86_64/pngout
 
-script: ./bin/phpunit -v
+script: php -dapc.enable_cli=1 ./bin/phpunit -v
