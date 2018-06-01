@@ -58,6 +58,8 @@ class CompassFilter extends BaseSassFilter
 
     public function __construct($compassPath = '/usr/bin/compass', $rubyPath = null)
     {
+        @trigger_error('The ' . __CLASS__ . ' class is deprecated since version 1.5 and will be removed in 2.0.', E_USER_DEPRECATED);
+
         $this->compassPath = $compassPath;
         $this->rubyPath = $rubyPath;
         $this->cacheLocation = FilesystemUtils::getTemporaryDirectory();
