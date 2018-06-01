@@ -101,7 +101,7 @@ EOF;
             $this->useNib ? '.use(require(\'nib\')())' : ''
         ));
 
-        $proc = new Process($commandline);
+        $proc = $this->createProcessBuilder($commandline);
         $code = $proc->run();
         unlink($input);
 
