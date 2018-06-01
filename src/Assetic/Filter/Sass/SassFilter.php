@@ -112,7 +112,7 @@ class SassFilter extends BaseSassFilter
             $sassProcessArgs = array_merge(explode(' ', $this->rubyPath), $sassProcessArgs);
         }
 
-        $commandline =$sassProcessArgs);
+        $commandline = $sassProcessArgs;
 
         if ($dir = $asset->getSourceDirectory()) {
             array_push($commandline, '--load-path', $dir);
