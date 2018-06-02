@@ -12,7 +12,6 @@ addons:
             - libjpeg-progs
             - optipng
             - g++-4.8
-            - jpegoptim
 
 sudo: false
 
@@ -38,28 +37,25 @@ matrix:
 before_script:
     # php deps
     - yes '' | pecl install --force apcu
-    - composer self-update
-    - if [ "$DEPENDENCIES" = "dev" ]; then perl -pi -e 's/^}$/,"minimum-stability":"dev"}/' composer.json; fi;
     - test "$SYMFONY_VERSION" -eq 4 || composer require --no-update "symfony/lts:^$SYMFONY_VERSION"
-    - composer update $COMPOSER_FLAGS
+    - composer install
 
     # node deps
-    - npm install uglify-js@1 && mkdir -p vendor/uglifyjs && mv node_modules vendor/uglifyjs
+    - npm install --prefix vendor/uglifyjs uglify-js@1
     - npm install
-    - export NODE_VERSION=$(node -v | egrep -o "[0-9]+.[0-9]+.[0-9]+")
     - export UGLIFYJS_BIN=vendor/uglifyjs/node_modules/uglify-js/bin/uglifyjs
-    - if [[ "$NODE_VERSION" =~ ^0.[0-9].[0-9]+$|^0.10.[0-9]+$|^0.11.[0-9]$|^0.11.1[0-2]$ ]]; then export AUTOPREFIXER_BIN=node_modules/.bin/autoprefixer; else export AUTOPREFIXER_BIN=node_modules/.bin/autoprefixer-cli; fi;
+    - export AUTOPREFIXER_BIN=node_modules/.bin/autoprefixer-cli
 
     # java deps
     - mkdir -p vendor/java
     - wget http://dl.google.com/closure-compiler/compiler-latest.zip && unzip compiler-latest.zip -d vendor/java/compiler && mv vendor/java/compiler/closure-compiler-*.jar vendor/java/compiler/compiler.jar
     - export CLOSURE_JAR=vendor/java/compiler/compiler.jar
-    - wget https://github.com/google/closure-stylesheets/releases/download/v1.4.0/closure-stylesheets.jar && mv closure-stylesheets.jar vendor/java
+    - wget https://github.com/google/closure-stylesheets/releases/download/v1.4.0/closure-stylesheets.jar --output-document=vendor/java/closure-stylesheets.jar
     - export GSS_JAR=vendor/java/closure-stylesheets.jar
-    - wget https://github.com/downloads/nzakas/cssembed/cssembed-0.4.5.jar && mv cssembed-0.4.5.jar vendor/java
-    - export CSSEMBED_JAR=vendor/java/cssembed-0.4.5.jar
-    - wget https://github.com/yui/yuicompressor/releases/download/v2.4.8/yuicompressor-2.4.8.jar
-    - export YUI_COMPRESSOR_JAR=yuicompressor-2.4.8.jar
+    - wget https://github.com/downloads/nzakas/cssembed/cssembed-0.4.5.jar --output-document=vendor/java/cssembed.jar
+    - export CSSEMBED_JAR=vendor/java/cssembed.jar
+    - wget https://github.com/yui/yuicompressor/releases/download/v2.4.8/yuicompressor-2.4.8.jar --output-document=vendor/java/yuicompressor.jar
+    - export YUI_COMPRESSOR_JAR=vendor/java/yuicompressor.jar
 
     # ruby deps
     - bundle install
