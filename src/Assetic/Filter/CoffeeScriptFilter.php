@@ -67,7 +67,7 @@ class CoffeeScriptFilter extends BaseNodeFilter
         }
 
         array_push($commandline, $input);
-        $proc = new Process($commandline);
+        $proc = new Process(implode(' ', $commandline));
         $code = $proc->run();
         unlink($input);
 

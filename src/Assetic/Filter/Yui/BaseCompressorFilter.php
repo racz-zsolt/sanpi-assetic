@@ -94,7 +94,7 @@ abstract class BaseCompressorFilter extends BaseProcessFilter
         file_put_contents($input, $content);
         array_push($commandline, '-o', $output, '--type', $type, $input);
 
-        $proc = new Process($commandline);
+        $proc = new Process(implode(' ', $commandline));
         $code = $proc->run();
         unlink($input);
 

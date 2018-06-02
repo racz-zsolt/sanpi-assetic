@@ -95,7 +95,7 @@ class CompilerJarFilter extends BaseCompilerFilter
         array_push($commandline, '--js', $cleanup[] = $input = FilesystemUtils::createTemporaryFile('google_closure'));
         file_put_contents($input, $asset->getContent());
 
-        $process = new Process($commandline);
+        $process = new Process(implode(' ', $commandline));
 
         if (null !== $this->timeout) {
             $process->setTimeout($this->timeout);

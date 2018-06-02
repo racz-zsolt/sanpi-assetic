@@ -67,7 +67,7 @@ class JpegoptimFilter extends BaseProcessFilter
         array_push($commandline, $input = FilesystemUtils::createTemporaryFile('jpegoptim'));
         file_put_contents($input, $asset->getContent());
 
-        $proc = new Process($commandline);
+        $proc = new Process(implode(' ', $commandline));
         $proc->run();
 
         if (false !== strpos($proc->getOutput(), 'ERROR')) {

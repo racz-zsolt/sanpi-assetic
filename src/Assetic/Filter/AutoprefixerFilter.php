@@ -61,13 +61,13 @@ class AutoprefixerFilter extends BaseNodeFilter
         $commandline = array($this->autoprefixerBin);
 
         if ($this->browsers) {
-            array_push($commandline, '-b', implode(',', $this->browsers));
+            array_push($commandline, '-b', '"' . implode(',', $this->browsers) . '"');
         }
 
         $output = FilesystemUtils::createTemporaryFile('autoprefixer');
         array_push($commandline, '-o', $output);
 
-        $proc = new Process($commandline);
+        $proc = new Process(implode(' ', $commandline));
         $proc->setInput($input);
 
         if (0 !== $proc->run()) {

@@ -53,7 +53,7 @@ class TypeScriptFilter extends BaseNodeFilter
 
         array_push($commandline, $inputPath, '--out', $outputPath);
 
-        $proc = new Process($commandline);
+        $proc = new Process(implode(' ', $commandline));
         $code = $proc->run();
         unlink($inputPath);
         rmdir($inputDirPath);

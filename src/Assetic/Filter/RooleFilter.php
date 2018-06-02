@@ -53,7 +53,7 @@ class RooleFilter extends BaseNodeFilter implements DependencyExtractorInterface
 
         array_push($commandline, $input);
 
-        $proc = new Process($commandline);
+        $proc = new Process(implode(' ', $commandline));
         $code = $proc->run();
         unlink($input);
 

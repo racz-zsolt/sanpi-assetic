@@ -57,7 +57,7 @@ class EmberPrecompileFilter extends BaseNodeFilter
 
         array_push($commandline, $inputPath, '-f', $outputPath);
 
-        $process = new Process($commandline);
+        $process = new Process(implode(' ', $commandline));
         $returnCode = $process->run();
 
         unlink($inputPath);

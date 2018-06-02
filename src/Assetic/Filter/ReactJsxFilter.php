@@ -43,7 +43,7 @@ class ReactJsxFilter extends BaseNodeFilter
             $outputDir,
             '--no-cache-dir');
 
-        $proc = new Process($commandline);
+        $proc = new Process(implode(' ', $commandline));
         $code = $proc->run();
 
         // remove the input directory and asset file

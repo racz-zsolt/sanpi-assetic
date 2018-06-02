@@ -405,7 +405,7 @@ class CleanCssFilter extends BaseNodeFilter
         file_put_contents($input, $asset->getContent());
         array_push($commandline, $input);
 
-        $proc = new Process($commandline);
+        $proc = new Process(implode(' ', $commandline));
         $code = $proc->run();
         unlink($input);
 
@@ -437,7 +437,7 @@ class CleanCssFilter extends BaseNodeFilter
         $commandline = $this->getBinary();
         array_push($commandline, '--version');
 
-        $proc = new Process($commandline);
+        $proc = new Process(implode(' ', $commandline));
         $code = $proc->run();
 
         return $proc->getOutput();

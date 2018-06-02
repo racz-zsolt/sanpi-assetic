@@ -91,7 +91,7 @@ class JpegtranFilter extends BaseProcessFilter
         array_push($commandline, $input = FilesystemUtils::createTemporaryFile('jpegtran'));
         file_put_contents($input, $asset->getContent());
 
-        $proc = new Process($commandline);
+        $proc = new Process(implode(' ', $commandline));
         $code = $proc->run();
         unlink($input);
 

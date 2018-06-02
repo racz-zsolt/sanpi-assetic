@@ -39,7 +39,7 @@ abstract class BaseProcessFilter implements FilterInterface
      */
     protected function createProcessBuilder(array $arguments = array())
     {
-        $pb = new Process($arguments);
+        $pb = new Process(implode(' ', $arguments));
 
         if (null !== $this->timeout) {
             $pb->setTimeout($this->timeout);
@@ -56,6 +56,9 @@ abstract class BaseProcessFilter implements FilterInterface
             $env[$key] = $value;
         }
 
+        if (is_callable([$process, 'inheritEnvironmentVariables'])) {
+            $process->inheritEnvironmentVariables();
+        }
         $process->setEnv($env);
     }
 }

@@ -126,7 +126,7 @@ class GssFilter extends BaseProcessFilter
         array_push($commandline, $cleanup[] = $input = FilesystemUtils::createTemporaryFile('gss'));
         file_put_contents($input, $asset->getContent());
 
-        $proc = new Process($commandline);
+        $proc = new Process(implode(' ', $commandline));
         $code = $proc->run();
         array_map('unlink', $cleanup);
 
