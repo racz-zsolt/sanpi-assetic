@@ -38,6 +38,9 @@ class UglifyJsFilterTest extends FilterTestCase
         $process = new Process(implode(' ', $commandline));
 
         if (isset($_SERVER['NODE_PATH'])) {
+            if (is_callable([$process, 'inheritEnvironmentVariables'])) {
+                $process->inheritEnvironmentVariables();
+            }
             $process->setEnv(array(
                 'NODE_PATH' => $_SERVER['NODE_PATH']
             ));

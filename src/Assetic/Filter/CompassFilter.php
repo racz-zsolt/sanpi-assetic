@@ -344,6 +344,9 @@ class CompassFilter extends BaseSassFilter
         $proc = new Process(implode(' ', $commandline));
 
         if ($this->homeEnv) {
+            if (is_callable([$proc, 'inheritEnvironmentVariables'])) {
+                $proc->inheritEnvironmentVariables();
+            }
             // it's not really usefull but... https://github.com/chriseppstein/compass/issues/376
             $proc->setEnv(array('HOME' => FilesystemUtils::getTemporaryDirectory()));
             $this->mergeEnv($proc);

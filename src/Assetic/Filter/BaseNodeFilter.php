@@ -36,6 +36,10 @@ abstract class BaseNodeFilter extends BaseProcessFilter
 
         if ($this->nodePaths) {
             $this->mergeEnv($pb);
+
+            if (is_callable([$pb, 'inheritEnvironmentVariables'])) {
+                $pb->inheritEnvironmentVariables();
+            }
             $pb->setEnv([
                 'NODE_PATH' => implode(PATH_SEPARATOR, $this->nodePaths),
             ]);

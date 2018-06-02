@@ -28,6 +28,7 @@ php:
 env:
     matrix:
         - SYMFONY_VERSION=2
+        - SYMFONY_VERSION=3
         - SYMFONY_VERSION=4
 
 matrix:

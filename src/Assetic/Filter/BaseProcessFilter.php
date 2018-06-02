@@ -56,6 +56,9 @@ abstract class BaseProcessFilter implements FilterInterface
             $env[$key] = $value;
         }
 
+        if (is_callable([$process, 'inheritEnvironmentVariables'])) {
+            $process->inheritEnvironmentVariables();
+        }
         $process->setEnv($env);
     }
 }
