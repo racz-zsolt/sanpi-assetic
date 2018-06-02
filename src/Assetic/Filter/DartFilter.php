@@ -42,7 +42,7 @@ class DartFilter extends BaseProcessFilter
             '-o'.$output,
             $input);
 
-        $proc = new Process($commandline);
+        $proc = new Process(implode(' ', $commandline));
         $code = $proc->run();
         unlink($input);
 

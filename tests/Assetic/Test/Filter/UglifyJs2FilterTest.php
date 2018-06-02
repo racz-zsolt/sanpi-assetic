@@ -42,7 +42,7 @@ class UglifyJs2FilterTest extends FilterTestCase
         $commandline = $nodeBin ? array($nodeBin, $uglifyjsBin) : array($uglifyjsBin);
         $commandline[] = '--version';
 
-        $process = new Process($commandline);
+        $process = new Process(implode(' ', $commandline));
 
         if (isset($_SERVER['NODE_PATH'])) {
             $process->setEnv(array('NODE_PATH' => $_SERVER['NODE_PATH']));

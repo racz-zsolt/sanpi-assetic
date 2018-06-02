@@ -109,7 +109,7 @@ EOF;
             $input,
         );
 
-        $proc = new Process($commandline);
+        $proc = new Process(implode(' ', $commandline));
         $code = $proc->run();
         unlink($tmpAsset);
         unlink($input);

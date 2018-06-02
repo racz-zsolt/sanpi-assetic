@@ -74,7 +74,7 @@ class HandlebarsFilter extends BaseNodeFilter
             array_push($commandline, '--simple');
         }
 
-        $process = new Process($commandline);
+        $process = new Process(implode(' ', $commandline));
         $returnCode = $process->run();
 
         unlink($inputPath);

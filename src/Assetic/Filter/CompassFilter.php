@@ -341,7 +341,7 @@ class CompassFilter extends BaseSassFilter
         $output = $tempName . '.css';
 
 
-        $proc = new Process($commandline);
+        $proc = new Process(implode(' ', $commandline));
 
         if ($this->homeEnv) {
             // it's not really usefull but... https://github.com/chriseppstein/compass/issues/376

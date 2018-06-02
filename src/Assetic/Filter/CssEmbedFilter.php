@@ -125,7 +125,7 @@ class CssEmbedFilter extends BaseProcessFilter implements DependencyExtractorInt
         array_push($commandline, $input = FilesystemUtils::createTemporaryFile('cssembed'));
         file_put_contents($input, $asset->getContent());
 
-        $proc = new Process($commandline);
+        $proc = new Process(implode(' ', $commandline));
         $code = $proc->run();
         unlink($input);
 

@@ -113,7 +113,7 @@ class PngoutFilter extends BaseProcessFilter
         unlink($output);
         array_push($commandline, $output .= '.png');
 
-        $proc = new Process($commandline);
+        $proc = new Process(implode(' ', $commandline));
         $code = $proc->run();
 
         if (0 !== $code) {

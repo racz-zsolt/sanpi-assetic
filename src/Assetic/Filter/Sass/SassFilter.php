@@ -170,7 +170,7 @@ class SassFilter extends BaseSassFilter
         array_push($commandline, $input = FilesystemUtils::createTemporaryFile('sass'));
         file_put_contents($input, $asset->getContent());
 
-        $proc = new Process($commandline);
+        $proc = new Process(implode(' ', $commandline));
         $code = $proc->run();
         unlink($input);
 

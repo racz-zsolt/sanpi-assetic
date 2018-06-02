@@ -49,7 +49,7 @@ abstract class FilterTestCase extends TestCase
             $this->markTestSkipped('Unable to find `node` executable.');
         }
 
-        $p = new Process(array($bin, '-e', 'require(\''.$module.'\')'), null);
+        $p = new Process("$bin -e \"require('$module')\"");
 
         if (isset($_SERVER['NODE_PATH'])) {
             $p->setEnv(array(

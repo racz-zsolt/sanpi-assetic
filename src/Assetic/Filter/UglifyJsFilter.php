@@ -135,7 +135,7 @@ class UglifyJsFilter extends BaseNodeFilter
         file_put_contents($input, $asset->getContent());
         array_push($commandline, '-o', $output, $input);
 
-        $proc = new Process($commandline);
+        $proc = new Process(implode(' ', $commandline));
         $code = $proc->run();
         unlink($input);
 
