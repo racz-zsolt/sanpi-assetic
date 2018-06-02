@@ -13,6 +13,10 @@ namespace Assetic;
 
 use Assetic\Asset\AssetInterface;
 
+if (version_compare(PHP_VERSION, '7.1', '<=')) {
+    @trigger_error('assetic will drop support for PHP < 7.1 in version 2.0.', E_USER_DEPRECATED);
+}
+
 /**
  * Manages assets.
  *
