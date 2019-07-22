@@ -13,8 +13,8 @@ namespace Assetic\Filter;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
+use Assetic\Process;
 use Assetic\Util\FilesystemUtils;
-use Symfony\Component\Process\Process;
 
 /**
  * Compiles TypeScript into JavaScript.
@@ -53,7 +53,7 @@ class TypeScriptFilter extends BaseNodeFilter
 
         array_push($commandline, $inputPath, '--out', $outputPath);
 
-        $proc = new Process(implode(' ', $commandline));
+        $proc = Process::fromShellCommandline(implode(' ', $commandline));
         $code = $proc->run();
         unlink($inputPath);
         rmdir($inputDirPath);

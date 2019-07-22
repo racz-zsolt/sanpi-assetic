@@ -14,8 +14,8 @@ namespace Assetic\Filter;
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
 use Assetic\Filter\Sass\BaseSassFilter;
+use Assetic\Process;
 use Assetic\Util\FilesystemUtils;
-use Symfony\Component\Process\Process;
 
 /**
  * Loads Compass files.
@@ -341,7 +341,7 @@ class CompassFilter extends BaseSassFilter
         $output = $tempName . '.css';
 
 
-        $proc = new Process(implode(' ', $commandline));
+        $proc = Process::fromShellCommandline(implode(' ', $commandline));
 
         if ($this->homeEnv) {
             if (is_callable([$proc, 'inheritEnvironmentVariables'])) {

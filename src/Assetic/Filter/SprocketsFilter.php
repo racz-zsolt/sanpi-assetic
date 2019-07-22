@@ -14,8 +14,8 @@ namespace Assetic\Filter;
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
 use Assetic\Factory\AssetFactory;
+use Assetic\Process;
 use Assetic\Util\FilesystemUtils;
-use Symfony\Component\Process\Process;
 
 /**
  * Runs assets through Sprockets.
@@ -109,7 +109,7 @@ EOF;
             $input,
         );
 
-        $proc = new Process(implode(' ', $commandline));
+        $proc = Process::fromShellCommandline(implode(' ', $commandline));
         $code = $proc->run();
         unlink($tmpAsset);
         unlink($input);

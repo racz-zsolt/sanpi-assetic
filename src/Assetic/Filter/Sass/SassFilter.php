@@ -11,10 +11,10 @@
 
 namespace Assetic\Filter\Sass;
 
+use Assetic\Process;
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
 use Assetic\Util\FilesystemUtils;
-use Symfony\Component\Process\Process;
 
 /**
  * Loads SASS files.
@@ -170,7 +170,7 @@ class SassFilter extends BaseSassFilter
         array_push($commandline, $input = FilesystemUtils::createTemporaryFile('sass'));
         file_put_contents($input, $asset->getContent());
 
-        $proc = new Process(implode(' ', $commandline));
+        $proc = Process::fromShellCommandline(implode(' ', $commandline));
         $code = $proc->run();
         unlink($input);
 

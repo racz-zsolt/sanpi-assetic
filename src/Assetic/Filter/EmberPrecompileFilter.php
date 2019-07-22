@@ -13,8 +13,8 @@ namespace Assetic\Filter;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
+use Assetic\Process;
 use Assetic\Util\FilesystemUtils;
-use Symfony\Component\Process\Process;
 
 /**
  * Precompiles Handlebars templates for use in the Ember.js framework. This filter
@@ -57,7 +57,7 @@ class EmberPrecompileFilter extends BaseNodeFilter
 
         array_push($commandline, $inputPath, '-f', $outputPath);
 
-        $process = new Process(implode(' ', $commandline));
+        $process = Process::fromShellCommandline(implode(' ', $commandline));
         $returnCode = $process->run();
 
         unlink($inputPath);

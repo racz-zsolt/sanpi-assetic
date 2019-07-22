@@ -13,8 +13,8 @@ namespace Assetic\Filter;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
+use Assetic\Process;
 use Assetic\Util\FilesystemUtils;
-use Symfony\Component\Process\Process;
 
 /**
  * Runs assets through jpegtran.
@@ -91,7 +91,7 @@ class JpegtranFilter extends BaseProcessFilter
         array_push($commandline, $input = FilesystemUtils::createTemporaryFile('jpegtran'));
         file_put_contents($input, $asset->getContent());
 
-        $proc = new Process(implode(' ', $commandline));
+        $proc = Process::fromShellCommandline(implode(' ', $commandline));
         $code = $proc->run();
         unlink($input);
 

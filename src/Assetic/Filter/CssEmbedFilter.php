@@ -14,8 +14,8 @@ namespace Assetic\Filter;
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
 use Assetic\Factory\AssetFactory;
+use Assetic\Process;
 use Assetic\Util\FilesystemUtils;
-use Symfony\Component\Process\Process;
 
 /**
  * CSSEmbed filter
@@ -125,7 +125,7 @@ class CssEmbedFilter extends BaseProcessFilter implements DependencyExtractorInt
         array_push($commandline, $input = FilesystemUtils::createTemporaryFile('cssembed'));
         file_put_contents($input, $asset->getContent());
 
-        $proc = new Process(implode(' ', $commandline));
+        $proc = Process::fromShellCommandline(implode(' ', $commandline));
         $code = $proc->run();
         unlink($input);
 

@@ -11,9 +11,9 @@
 
 namespace Assetic\Test\Filter;
 
+use Assetic\Process;
 use Assetic\Test\TestCase;
 use Symfony\Component\Process\ExecutableFinder;
-use Symfony\Component\Process\Process;
 
 abstract class FilterTestCase extends TestCase
 {
@@ -49,7 +49,7 @@ abstract class FilterTestCase extends TestCase
             $this->markTestSkipped('Unable to find `node` executable.');
         }
 
-        $p = new Process("$bin -e \"require('$module')\"");
+        $p = Process::fromShellCommandline("$bin -e \"require('$module')\"");
 
         if (isset($_SERVER['NODE_PATH'])) {
             if (is_callable([$p, 'inheritEnvironmentVariables'])) {

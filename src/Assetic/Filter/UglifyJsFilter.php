@@ -13,8 +13,8 @@ namespace Assetic\Filter;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
+use Assetic\Process;
 use Assetic\Util\FilesystemUtils;
-use Symfony\Component\Process\Process;
 
 /**
  * UglifyJs filter.
@@ -135,7 +135,7 @@ class UglifyJsFilter extends BaseNodeFilter
         file_put_contents($input, $asset->getContent());
         array_push($commandline, '-o', $output, $input);
 
-        $proc = new Process(implode(' ', $commandline));
+        $proc = Process::fromShellCommandline(implode(' ', $commandline));
         $code = $proc->run();
         unlink($input);
 

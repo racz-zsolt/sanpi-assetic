@@ -13,8 +13,8 @@ namespace Assetic\Filter;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
+use Assetic\Process;
 use Assetic\Util\FilesystemUtils;
-use Symfony\Component\Process\Process;
 
 /**
  * Runs assets through Jpegoptim.
@@ -67,7 +67,7 @@ class JpegoptimFilter extends BaseProcessFilter
         array_push($commandline, $input = FilesystemUtils::createTemporaryFile('jpegoptim'));
         file_put_contents($input, $asset->getContent());
 
-        $proc = new Process(implode(' ', $commandline));
+        $proc = Process::fromShellCommandline(implode(' ', $commandline));
         $proc->run();
 
         if (false !== strpos($proc->getOutput(), 'ERROR')) {

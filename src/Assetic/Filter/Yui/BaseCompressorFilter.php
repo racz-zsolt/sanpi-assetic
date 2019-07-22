@@ -14,8 +14,8 @@ namespace Assetic\Filter\Yui;
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
 use Assetic\Filter\BaseProcessFilter;
+use Assetic\Process;
 use Assetic\Util\FilesystemUtils;
-use Symfony\Component\Process\Process;
 
 /**
  * Base YUI compressor filter.
@@ -94,7 +94,7 @@ abstract class BaseCompressorFilter extends BaseProcessFilter
         file_put_contents($input, $content);
         array_push($commandline, '-o', $output, '--type', $type, $input);
 
-        $proc = new Process(implode(' ', $commandline));
+        $proc = Process::fromShellCommandline(implode(' ', $commandline));
         $code = $proc->run();
         unlink($input);
 
