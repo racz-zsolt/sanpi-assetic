@@ -13,8 +13,8 @@ namespace Assetic\Filter\GoogleClosure;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
+use Assetic\Process;
 use Assetic\Util\FilesystemUtils;
-use Symfony\Component\Process\Process;
 
 /**
  * Filter for the Google Closure Compiler JAR.
@@ -95,7 +95,7 @@ class CompilerJarFilter extends BaseCompilerFilter
         array_push($commandline, '--js', $cleanup[] = $input = FilesystemUtils::createTemporaryFile('google_closure'));
         file_put_contents($input, $asset->getContent());
 
-        $process = new Process(implode(' ', $commandline));
+        $process = Process::fromShellCommandline(implode(' ', $commandline));
 
         if (null !== $this->timeout) {
             $process->setTimeout($this->timeout);

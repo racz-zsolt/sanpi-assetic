@@ -11,7 +11,7 @@
 
 namespace Assetic\Exception;
 
-use Symfony\Component\Process\Process;
+use Assetic\Process;
 
 /**
  * Describes an exception that occurred within a filter.

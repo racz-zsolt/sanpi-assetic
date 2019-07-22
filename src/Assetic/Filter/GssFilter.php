@@ -13,8 +13,8 @@ namespace Assetic\Filter;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
+use Assetic\Process;
 use Assetic\Util\FilesystemUtils;
-use Symfony\Component\Process\Process;
 
 /**
  * Filter for the Google Closure Stylesheets Compiler JAR.
@@ -126,7 +126,7 @@ class GssFilter extends BaseProcessFilter
         array_push($commandline, $cleanup[] = $input = FilesystemUtils::createTemporaryFile('gss'));
         file_put_contents($input, $asset->getContent());
 
-        $proc = new Process(implode(' ', $commandline));
+        $proc = Process::fromShellCommandline(implode(' ', $commandline));
         $code = $proc->run();
         array_map('unlink', $cleanup);
 

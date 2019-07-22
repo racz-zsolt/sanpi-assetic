@@ -13,7 +13,7 @@ namespace Assetic\Filter;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
-use Symfony\Component\Process\Process;
+use Assetic\Process;
 
 /**
  * CleanCss filter.
@@ -405,7 +405,7 @@ class CleanCssFilter extends BaseNodeFilter
         file_put_contents($input, $asset->getContent());
         array_push($commandline, $input);
 
-        $proc = new Process(implode(' ', $commandline));
+        $proc = Process::fromShellCommandline(implode(' ', $commandline));
         $code = $proc->run();
         unlink($input);
 
@@ -437,7 +437,7 @@ class CleanCssFilter extends BaseNodeFilter
         $commandline = $this->getBinary();
         array_push($commandline, '--version');
 
-        $proc = new Process(implode(' ', $commandline));
+        $proc = Process::fromShellCommandline(implode(' ', $commandline));
         $code = $proc->run();
 
         return $proc->getOutput();

@@ -13,8 +13,8 @@ namespace Assetic\Filter;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
+use Assetic\Process;
 use Assetic\Util\FilesystemUtils;
-use Symfony\Component\Process\Process;
 
 /**
  * Compiles Handlebars templates into Javascript.
@@ -74,7 +74,7 @@ class HandlebarsFilter extends BaseNodeFilter
             array_push($commandline, '--simple');
         }
 
-        $process = new Process(implode(' ', $commandline));
+        $process = Process::fromShellCommandline(implode(' ', $commandline));
         $returnCode = $process->run();
 
         unlink($inputPath);

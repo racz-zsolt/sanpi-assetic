@@ -11,9 +11,9 @@
 
 namespace Assetic\Test\Filter;
 
+use Assetic\Process;
 use Assetic\Asset\FileAsset;
 use Assetic\Filter\UglifyJs2Filter;
-use Symfony\Component\Process\Process;
 
 /**
  * @group integration
@@ -42,7 +42,7 @@ class UglifyJs2FilterTest extends FilterTestCase
         $commandline = $nodeBin ? array($nodeBin, $uglifyjsBin) : array($uglifyjsBin);
         $commandline[] = '--version';
 
-        $process = new Process(implode(' ', $commandline));
+        $process = Process::fromShellCommandline(implode(' ', $commandline));
 
         if (isset($_SERVER['NODE_PATH'])) {
             if (is_callable([$process, 'inheritEnvironmentVariables'])) {

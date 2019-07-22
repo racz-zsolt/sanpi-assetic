@@ -4,8 +4,8 @@ namespace Assetic\Filter;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
+use Assetic\Process;
 use Assetic\Util\FilesystemUtils;
-use Symfony\Component\Process\Process;
 
 /**
  * Compiles JSX (for use with React) into JavaScript.
@@ -43,7 +43,7 @@ class ReactJsxFilter extends BaseNodeFilter
             $outputDir,
             '--no-cache-dir');
 
-        $proc = new Process(implode(' ', $commandline));
+        $proc = Process::fromShellCommandline(implode(' ', $commandline));
         $code = $proc->run();
 
         // remove the input directory and asset file
